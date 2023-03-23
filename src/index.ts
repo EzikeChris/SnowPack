@@ -1,11 +1,26 @@
-/**
- * This file is just a silly example to show everything working in the browser.
- * When you're ready to start on your site, clear the file. Happy hacking!
- **/
+import { v4 as uuidV4 } from 'uuid';
 
-import confetti from 'canvas-confetti';
+// Capture Task Elements By ID //
+const list = document.querySelector<HTMLUListElement>('#list');
+const taskForm = document.querySelector<HTMLFormElement>('#task-form');
+const taskTitle = document.querySelector<HTMLFormElement>('#task-title');
 
-confetti.create(document.getElementById('canvas') as HTMLCanvasElement, {
-  resize: true,
-  useWorker: true,
-})({ particleCount: 200, spread: 200 });
+// Adherance
+interface Task {
+  id: string;
+  title: string;
+  completed: boolean;
+  createdAt: Date;
+}
+
+/// Capture Task Data ///
+taskForm?.addEventListener('submit', function (e) {
+  e.preventDefault();
+  if (taskTitle?.value == String || taskTitle?.value == null) return;
+  const newTask: Task = {
+    id: uuidV4(),
+    title: taskTitle.value,
+    completed: false,
+    createdAt: new Date(),
+  };
+});
